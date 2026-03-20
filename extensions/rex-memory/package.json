@@ -1,5 +1,5 @@
 {
-  "name": "@rex/memory",
+  "name": "@openclaw/rex-memory",
   "version": "1.0.0",
   "private": true,
   "description": "Rex Memory — hybrid BM25+vector search with multi-tenant scoping",

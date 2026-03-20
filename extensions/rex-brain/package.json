@@ -1,5 +1,5 @@
 {
-  "name": "@rex/brain",
+  "name": "@openclaw/rex-brain",
   "version": "1.0.0",
   "private": true,
   "description": "Rex Brain — identity, routing, daemon, and orchestration for OpenClaw",
