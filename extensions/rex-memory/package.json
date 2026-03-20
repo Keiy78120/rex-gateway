@@ -1,0 +1,19 @@
+{
+  "name": "@rex/memory",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rex Memory — hybrid BM25+vector search with multi-tenant scoping",
+  "type": "module",
+  "dependencies": {
+    "better-sqlite3": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
+    "openclaw": "workspace:*"
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

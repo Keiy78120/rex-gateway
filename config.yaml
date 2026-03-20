@@ -1,0 +1,56 @@
+name: Rex
+identity: rex
+language: fr
+
+gateway:
+  mode: local
+  port: 18789
+  bind: 0.0.0.0
+
+channels:
+  telegram:
+    enabled: true
+
+plugins:
+  enabled:
+    - rex-brain
+    - rex-memory
+    - telegram
+    - ollama
+  disabled:
+    - memory-core # replaced by rex-memory
+
+models:
+  default: qwen3.5:9b
+  providers:
+    ollama:
+      baseUrl: http://ollama-sidecar:11434
+      models:
+        - qwen3.5:0.8b
+        - nomic-embed-text
+
+agents:
+  default:
+    model: qwen3.5:0.8b
+    systemPrompt: "Tu es Rex, l'assistant IA de Kevin (D-Studio)."
+
+rex:
+  daemon:
+    healthCheckInterval: 300 # 5min
+    miloMonitorInterval: 300
+    fleetMeshInterval: 1800 # 30min
+    memoryIngestInterval: 3600 # 1h
+  fleet:
+    mac: 100.112.24.122
+    pc: 100.91.130.59
+    vps: 109.176.197.27
+  training:
+    enabled: true
+    model: qwen3.5:0.8b
+    datasetMinSize: 2000
+  memory:
+    dimensions: 768
+    embedModel: nomic-embed-text
+    rrf:
+      alpha: 0.7
+      k: 60

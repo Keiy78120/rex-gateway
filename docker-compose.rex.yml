@@ -1,0 +1,74 @@
+services:
+  rex-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      NODE_OPTIONS: "--max-old-space-size=2048"
+      TZ: Europe/Paris
+    volumes:
+      - ./data:/data
+      - ./workspace:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "18790:18789"
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 3072M
+    networks:
+      - traefik_proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rex-bot.rule=Host(`rex.srv869847.hstgr.cloud`)"
+      - "traefik.http.routers.rex-bot.entrypoints=websecure"
+      - "traefik.http.routers.rex-bot.tls=true"
+      - "traefik.http.routers.rex-bot.tls.certresolver=letsencrypt"
+      - "traefik.http.services.rex-bot.loadbalancer.server.port=18789"
+    restart: unless-stopped
+    depends_on:
+      ollama-sidecar:
+        condition: service_healthy
+    command: ["node", "dist/index.js", "gateway", "--bind", "0.0.0.0", "--port", "18789"]
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:18789/healthz').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  ollama-sidecar:
+    image: ollama/ollama:latest
+    volumes:
+      - ./ollama-data:/root/.ollama
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024M
+    environment:
+      OLLAMA_NUM_PARALLEL: "1"
+    networks:
+      - traefik_proxy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:11434"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  traefik_proxy:
+    external: true

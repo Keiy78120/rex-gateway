@@ -1,0 +1,51 @@
+{
+  "id": "rex-brain",
+  "name": "Rex Brain",
+  "description": "Rex identity, 6-tier routing, daemon cycles, and orchestration tools for Kevin (D-Studio)",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "ollamaUrl": {
+        "type": "string"
+      },
+      "opusDailyLimit": {
+        "type": "number"
+      },
+      "daemonHealthIntervalMs": {
+        "type": "number"
+      },
+      "daemonFleetIntervalMs": {
+        "type": "number"
+      },
+      "daemonIngestIntervalMs": {
+        "type": "number"
+      },
+      "telegramBotToken": {
+        "type": "string"
+      },
+      "telegramChatId": {
+        "type": "string"
+      }
+    }
+  },
+  "uiHints": {
+    "ollamaUrl": {
+      "label": "Ollama URL",
+      "help": "Ollama API endpoint (default: http://localhost:11434)"
+    },
+    "opusDailyLimit": {
+      "label": "Opus Daily Limit",
+      "help": "Maximum Opus calls per day (default: 3)"
+    },
+    "telegramBotToken": {
+      "label": "Telegram Bot Token",
+      "help": "Bot token for Kevin alert notifications",
+      "sensitive": true
+    },
+    "telegramChatId": {
+      "label": "Telegram Chat ID",
+      "help": "Chat ID for Kevin alert notifications"
+    }
+  }
+}

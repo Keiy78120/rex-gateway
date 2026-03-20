@@ -1,0 +1,53 @@
+{
+  "id": "rex-memory",
+  "kind": "memory",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "dbPath": {
+        "type": "string"
+      },
+      "ollamaUrl": {
+        "type": "string"
+      },
+      "embeddingModel": {
+        "type": "string"
+      },
+      "categorizationModel": {
+        "type": "string"
+      },
+      "brainVpsUrl": {
+        "type": "string"
+      }
+    }
+  },
+  "uiHints": {
+    "dbPath": {
+      "label": "Database Path",
+      "placeholder": "~/.rex-memory/rex-memory.db",
+      "help": "SQLite database file path",
+      "advanced": true
+    },
+    "ollamaUrl": {
+      "label": "Ollama URL",
+      "help": "Ollama API endpoint for embeddings (default: http://localhost:11434)",
+      "advanced": true
+    },
+    "embeddingModel": {
+      "label": "Embedding Model",
+      "placeholder": "nomic-embed-text",
+      "help": "Ollama embedding model (768-dim vectors)"
+    },
+    "categorizationModel": {
+      "label": "Categorization Model",
+      "placeholder": "qwen2.5:1.5b",
+      "help": "Ollama model for auto-categorization"
+    },
+    "brainVpsUrl": {
+      "label": "Brain VPS URL",
+      "help": "URL for brain VPS sync (optional)",
+      "advanced": true
+    }
+  }
+}
